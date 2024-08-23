@@ -144,3 +144,9 @@ FROM "orders"
 JOIN "donuts" ON "donut_id" = "donuts"."id"
 JOIN "customers" ON "customer_id" = "customers"."id"
 GROUP BY "number";
+
+--select all the orders that Luis Singh made
+SELECT "first_name", "last_name", "order_id" FROM "customer_orders"
+JOIN "customers" ON "customer_orders"."customer_id" = "customers"."id"
+JOIN "orders" ON "order_id" = "orders"."number"
+GROUP BY "number";
