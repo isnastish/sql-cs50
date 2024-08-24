@@ -107,7 +107,14 @@ SELECT "name", "industry", "location" FROM "companies";
 
 --insert a connection (user attended a school, and a shool had an alumni in the past)
 INSERT INTO "school_connections" ("user_id", "school_id", "start_date", "end_date", "degree")
-VALUES (1, 1, '1973-09-01', '1976-06-01', 'undegraduate eduaction at Harvard');
+VALUES 
+(
+    (SELECT "id" FROM "users" WHERE "first_name" = 'Alan' AND "last_name" = 'Garber'), 
+    (SELECT "id" FROM "schools" WHERE "name" = 'Harvard University'),
+    '1973-09-01',
+    '1976-06-01',
+    'undegraduate eduaction at Harvard'
+);
 
 --query school connections table
 SELECT "first_name", "last_name", "username", "name" AS "school name", "location" AS "school location",
@@ -119,7 +126,14 @@ ORDER BY "start_date" ASC, "first_name" ASC, "last_name" ASC;
 
 --add employment info
 INSERT INTO "company_connections" ("user_id", "company_id", "start_date", "end_date", "title")
-VALUES (2, 1, '2003-01-01', '2007-02-01', 'CEO and Chairman');
+VALUES 
+(
+    (SELECT "id" FROM "users" WHERE "first_name" = 'Reid' AND "last_name" = 'Hoffman'),
+    (SELECT "id" FROM "companies" WHERE "name" = 'LinkedIn'),
+    '2003-01-01', 
+    '2007-02-01', 
+    'CEO and Chairman'
+);
 
 --query company connections
 SELECT "name" AS "company name", "industry", "first_name", "last_name", 
