@@ -97,14 +97,14 @@ VALUES
 --insert into donut ingredients table all the ingredients
 INSERT INTO "donut_ingredients" ("donut_id", "ingredient_id")
 VALUES 
-(1, 1), --Cocoa
-(1, 3), --Flour
-(1, 4), --Buttermilk
-(1, 5), --Sugar
-(2, 3),
-(2, 4), 
-(2, 5), 
-(2, 6); --sprinkles 
+((SELECT "id" FROM "donuts" WHERE "name" = 'Belgian Dark Chocolate'), (SELECT "id" FROM "ingredients" WHERE "name" = 'Cocoa')),
+((SELECT "id" FROM "donuts" WHERE "name" = 'Belgian Dark Chocolate'), (SELECT "id" FROM "ingredients" WHERE "name" = 'Flour')),
+((SELECT "id" FROM "donuts" WHERE "name" = 'Belgian Dark Chocolate'), (SELECT "id" FROM "ingredients" WHERE "name" = 'Buttermilk')),
+((SELECT "id" FROM "donuts" WHERE "name" = 'Belgian Dark Chocolate'), (SELECT "id" FROM "ingredients" WHERE "name" = 'Sugar')),
+((SELECT "id" FROM "donuts" WHERE "name" = 'Back-To-School Sprinkles'), (SELECT "id" FROM "ingredients" WHERE "name" = 'Flour')),
+((SELECT "id" FROM "donuts" WHERE "name" = 'Back-To-School Sprinkles'), (SELECT "id" FROM "ingredients" WHERE "name" = 'Buttermilk')), 
+((SELECT "id" FROM "donuts" WHERE "name" = 'Back-To-School Sprinkles'), (SELECT "id" FROM "ingredients" WHERE "name" = 'Sugar')),
+((SELECT "id" FROM "donuts" WHERE "name" = 'Back-To-School Sprinkles'), (SELECT "id" FROM "ingredients" WHERE "name" = 'Sprinkles'));
 
 --query ingredients from donut ingredients table for 'Belgian Dark Chocolate' donut
 SELECT "ingredients"."name" AS "ingredient name", "donuts"."name" AS "donut name", "price_per_pound" AS "price per pound"
@@ -124,8 +124,8 @@ SELECT * FROM "customers";
 --insert an order into orders table, and insert an order into customer_orders
 INSERT INTO "orders" ("number", "donut_id", "count", "customer_id")
 VALUES
-(1, 1, 3, 1), -- 3 Belgian Dark Chocolate, Luis Singh
-(1, 2, 2, 1); -- 2 Back-To-School Sprinkles
+(1, (SELECT "id" FROM "donuts" WHERE "name" = 'Belgian Dark Chocolate'), 3, (SELECT "id" FROM "customers" WHERE "first_name" = 'Luis' AND "last_name" = 'Singh')),
+(1, (SELECT "id" FROM "donuts" WHERE "name" = 'Back-To-School Sprinkles'), 2, (SELECT "id" FROM "customers" WHERE "first_name" = 'Luis' AND "last_name" = 'Singh'));
 
 INSERT INTO "customer_orders" ("customer_id", "order_id") VALUES (1, 1);
 
